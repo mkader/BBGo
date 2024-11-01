@@ -1,3 +1,5 @@
+https://bytebytego.com/courses/system-design-interview/scale-from-zero-to-millions-of-users
+
 ## Big Data Pipeline Cheatsheet for AWS, Azure, and Google Cloud
 * Each platform offers a comprehensive suite of services that cover the entire lifecycle:
     1. Ingestion: Collecting data from various sources
