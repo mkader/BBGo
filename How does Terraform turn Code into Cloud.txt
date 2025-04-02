@@ -1,0 +1,18 @@
+ ## There are multiple stages in a Terraform workflow:
+* Write Infrastructure as Code
+    1. Define resources, providers, and configurations in Terraform configuration files.
+    1. Use variables, modules, and functions to make the code reusable and maintainable.
+    1. Integrate with Terraform community registries for ready-to-use modules.
+
+* Terraform Plan
+    1. Preview the changes Terraform will make to the infrastructure by running “terraform plan”. It can be triggered as part of a CI/CD pipeline.
+    1. Terraform compares the desired state defined in the configuration file with the current state in the state file.
+
+* Terraform Apply
+    1. Run “terraform apply” to create, update, or delete resources based on the plan.
+    1. Terraform makes API calls to the specified providers (AWS, Azure, GCP, Kubernetes, etc) to provision the resources.
+    1. The state file is updated to reflect the new state of the infrastructure.
+
+* Infrastructure Ready
+    1. Terraform state file acts as a single source of truth for the current state of the infrastructure.
+    1. State file enables version control and collaboration between team members for future changes.
