@@ -1,0 +1,6 @@
+Each platform offers a comprehensive suite of services that cover the entire lifecycle:
+  Ingestion: Collecting data from various sources
+  Data Lake: Storing raw data
+  Computation: Processing and analyzing data
+  Data Warehouse: Storing structured data
+  Presentation: Visualizing and reporting insights
