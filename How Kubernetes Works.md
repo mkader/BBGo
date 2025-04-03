@@ -19,3 +19,5 @@
     * Container runtime
  
   <img src="https://substack-post-media.s3.amazonaws.com/public/images/65a92a81-f2c5-4aed-9faa-35a66124cffe_1283x1536.gif">
+
+  <img src="https://substack-post-media.s3.amazonaws.com/public/images/969479da-0d86-4b00-bd2e-e2c6f8cd86c3_1393x1536.jpeg">
