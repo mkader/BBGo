@@ -8,3 +8,12 @@
   7. Reliability and Resiliency: Lastly, address the reliability and resiliency of the design. Identify single points of failure and mitigate their impact.
 
 <img src="https://substack-post-media.s3.amazonaws.com/public/images/e038f714-2624-4191-9531-77df101aa2e1_1280x1657.gif">
+
+* They are the most critical components to crafting successful software systems.
+* Let’s look at each of them with implementation techniques:
+  1. Scalability: Scalability ensures that your application can handle more load without compromising performance.
+  1. Availability: Availability makes sure that your application is always ready to serve the users and downtime is minimal.
+  1. Reliability: Reliability is about building software that consistently delivers correct results.
+  1. Performance: Performance is the ability of a system to carry out its tasks at an expected rate under peak load using available resources.
+
+<img src="https://substack-post-media.s3.amazonaws.com/public/images/77498aa3-aa02-4a5f-ac0a-3db855f5122b_1286x1536.gif">
