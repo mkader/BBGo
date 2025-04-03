@@ -12,3 +12,6 @@
 1. Ray Casting: Used for geospatial analysis, collision detection in video games, and computer graphics.
 
 <img src="https://substack-post-media.s3.amazonaws.com/public/images/2f632296-4214-4ec8-a1d2-280e9b7f2696_1280x1532.gif">
+
+ * 9 Algorithms
+<img src="https://substack-post-media.s3.amazonaws.com/public/images/1fd8dd9f-de1f-4c23-9406-3749153d8946_1280x1415.gif">
