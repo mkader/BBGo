@@ -1,0 +1,327 @@
+Open Web Application Security Project (OWASP)
+	External Data Threats
+		Flaws That Make Apps Vulnerable to External Data Threats
+			How applications handle external inputs
+				When applications don’t properly handle external inputs, they can be vulnerable to external data threats.
+				In general, strengthening input validation and sanitization will help mitigate these threats.
+
+			Four vulnerabilities in the Top 10 list relate primarily to external inputs.
+				A1: Injection
+				A4: XML External Entities (XXE)
+				A7: Cross-Site Scripting (XSS)
+				A8: Insecure Deserialization
+	 	Injection. I already know how to prevent SQL injection.
+			Injection can be found in a lot of places, not just SQL.
+			Injection Flaws
+				An injection flaw exists if your app passes user input to an interpreter without validating or encoding it properly.
+				Injection flaws occur when an attacker can send hostile data to an interpreter.
+				Using scanners, both developers and hackers can easily locate potential attack points.
+			Injection flaws are common, especially in older code.
+				For example, they can be found in queries (i.e., SQL, LDAP, XPath, NoSQL, or ORM), OS commands, XML parsers, SMTP headers, or expression languages.
+		Impact of Injection Attacks
+			Injection attacks can have serious consequences. These can include:
+				Data loss, corruption, or disclosure to unauthorized parties
+				Compromised account credentials
+				Complete host takeover
+		What Makes an App Vulnerable to Injection?
+			How can I search for injection vulnerabilities?
+				Search for syntax that makes requests to the interpreters in your environment.
+				Pay attention to all places where input from an HTTP request could possibly make its way into any of these calls.
+		Tips to Prevent Injection Flaws
+			Only use external interpreters when necessary.
+			Instead, search for a language-specific library to perform the function.
+			Also, remember to only give a web application the privileges it absolutely needs to perform its function.
+
+			When you need to use an external interpreter, reduce your risk by:
+				Ensuring all supplied parameters within a request are treated as data, rather than potentially executable content. For example, parameters in stored procedures or prepared statements.
+				Validating any user information that is being inserted into the command.
+		XML External Entities (XXE)
+			These flaws have to do with XML processors, right? Yep. This mainly deals with how XML processors handle external inputs.
+		XXE Attacks
+			What threats are associated with XXE?
+				Attackers can use XXE flaws to upload XML, insert malicious content in existing XML documents, or exploit the code in other ways.
+				Tools, such as static application security testing (SAST), can discover this issue by inspecting dependencies and configurations.
+			These flaws can be used to execute a wide variety of attacks, including:
+				Data extraction
+				Remote sever requests
+				Internal system scans
+				Denial-of-service (DoS)
+			
+		What Makes an App Vulnerable to XXE?
+			Your app will be vulnerable if:
+				The app uses an old XML processor that does not provide vital checks on data from an external entity
+				Document type definitions (DTDs) are enabled
+				Don’t forget about downstream applications and processors. For example, check anything built on XML for identity assertions.	
+		 Tips to Prevent XXE
+			Update the XML processors and libraries used by your applications or on the underlying operating system.
+			Don’t use an older application protocol like Simple Object Access Protocol (SOAP) unless the application requires it.
+			Implement server-side input validation, filtering, or sanitization to prevent malicious data within XML documents, headers, or nodes.
+			If you don’t need to reference external data entities, choose a data format, such as json, that doesn’t allow referencing external entities.
+			Disable XML external entity and DTD processing in all XML parsers in the application.
+			When working with XML, be sure to use an XSD. XSD allows you to prevent external references from being processed by your application.	
+		 Cross-Site Scripting (XSS)
+		 	Cross-site scripting primarily attacks an end user’s browser, right? Yeah. Attackers use it to work through a legitimate website.
+		 XSS Attacks
+		 	What is XSS?
+		 		XSS attacks can come in several forms (stored XSS, reflected XSS, and DOM XSS) and typically target a user’s browser.
+		 		These attacks can result in session stealing, account takeovers, MFA bypass, or the replacement of DOM nodes.
+		 		XSS can also attack the user’s browser with malicious software downloads, key logging, etc.
+		 		XSS is a very common type of attack.
+		 Different Types of XSS Vulnerabilities
+			When a website or app accepts external data, it could have one of these XSS vulnerabilities.
+			Stored XSS
+				Storing unsanitized user input in your application is considered high risk.
+			Reflected XSS
+				Even when user input is not stored, check your applications for HTML output that includes unvalidated and unescaped user input.
+			OM XSS
+				Examine your single-page applications, JavaScript frameworks, and APIs.
+				Look for ways they could dynamically include and deliver attacker-controllable data to a page.
+		Tips to Prevent XSS
+			Consider the following practices
+				In general, be sure to separate untrusted data from active browser content.
+				Protect against Reflected and Stored XSS:
+					Escape untrusted HTTP request data based on the context in the HTML output.
+				Protect against DOM XSS:
+					Apply context-sensitive encoding when modifying a browser document on the client side.
+					Learn the limitations of each of your frameworks' XSS protection to appropriately handle your use cases
+		Insecure Deserialization
+			That kind of attack is hard to pull off.
+			But when it works, the attacker uses an app’s own logic to run the attack.
+		Insecure Deserialization Flaws
+			What is insecure deserialization?
+				Insecure deserialization happens when attackers can send malicious or altered objects to be deserialized and executed by the application.
+				This type of attack is not easy to implement, but if successful, the attacker could tamper with data or access control. They could also inflict a denial-of-service (DoS) or remote code execution attack.
+		What Makes an App Vulnerable to Insecure Deserialization?
+			Any application is vulnerable if it accepts serialized objects from untrusted sources.
+			Using a serialization medium that permits complex data types may also increase an application’s vulnerability.
+		Tips to Prevent Insecure Deserialization
+			When possible, use an architectural pattern that does not accept serialized objects from untrusted sources.
+			You could also use a serialization medium that only permits primitive data types.
+			If you can’t use such an architectural pattern, consider the following tips:
+				Implement integrity checks on any serialized objects
+				Isolate and run code that deserializes in low privilege environments when possible
+				Monitor deserialization and generate alerts for unusual usage
+			It is also important to restrict or monitor incoming and outgoing network connectivity from containers or servers that deserialize objects.
+			Finally, log all deserialization exceptions and failures.
+		Question 1
+			True or False? By default, using the latest XML processors will prevent XXE vulnerabilities. False
+				Using the latest XML processor doesn’t completely protect you. You should make sure your XML only allows references to external entities your system requires. If you do not need to reference external entities, disable this functionality.
+		Question 2
+			If successful, how could an attacker use insecure deserialization?
+			Choose the best answer.
+				A Tamper with data
+				B Change access control
+				C Remote code execution attack
+				D All of the above [x]
+				A and B only
+				F None of the above
+			An attacker who exploits an insecure deserialization vulnerability can launch many types of attacks, including each of these.
+		Question 3
+			Which of the following are steps you can take to mitigate possible XXE vulnerabilities in an application?
+			Choose the best answer.
+				A Patch or upgrade the XML processors and libraries
+				B Update application protocols
+				C Ensure server-side input has validation, filtering, or sanitization
+				D All of the above [x]
+				E A and B only
+				F None of the above
+		Question 4
+			True or False?  XSS attacks typically target the end user. True
+				XSS allows attackers to inject malicious scripts into otherwise harmless websites. These attacks can come in several forms and typically target the end user’s browser.
+		Question 5
+			True or False? Injection flaws can cause serious problems if they are exploited. However, it is hard for attackers to find these flaws. False
+				Injection flaws are easy to discover when examining code. Automated tools, such as scanners, can help attackers find injection flaws.
+		Question 6
+			True or False? XSS attacks only happen when an application or API stores unsanitized user input. False
+				Reflected and DOM XSS attacks do not require user input to be stored in the application or API. Check your applications and APIs for unvalidated and unescaped user input in HTML output
+		Question 7
+			True or False? 	Outgoing network traffic won’t help you identify potential insecure deserialization. You will only need to restrict or monitor incoming network traffic from containers or servers that deserialize. False
+				Restrict or monitor incoming and outgoing network traffic from containers or servers that deserialize. Both incoming and outgoing network traffic can help you identify a potential insecure deserialization vulnerability.
+		Question 8
+			Which of the following are valid ways to protect against an injection attack?
+			Choose the best answer.
+				A Use external interpreters whenever possible
+				B Assign as few privileges to the web app as necessary
+				C Use stored procedures or prepared statements
+				D All of the above
+				E B and C only [x]
+				F None of the above
+			Run applications with as few privileges as necessary. This can mitigate an attack that does get through. Using stored procedures ensures that all supplied parameters are treated as data instead of as executable content. Whenever possible, don’t use external interpreters.
+		Question 9
+			True or False? Applications are vulnerable if they accept serialized objects from untrusted sources. True
+				If the application accepts serialized objects from untrusted sources, attackers can send malicious or altered objects to be deserialized and executed by the application. Insecure deserialization occurs when an attacker uses the application’s own logic to run the attack.
+		Question 10 
+			True or False? One way to protect against DOM XSS attacks is by applying context-sensitive encoding when modifying a browser document on the client-side. True
+			Active content can be executed when you insert content into the DOM. Always escape any content that you add to the DOM.
+		Question 11
+			True or False? Injection flaws occur when an attacker can send hostile data to an interpreter. True
+			Any time an application calls to external resources, you need to watch for an injection flaw. If there is a flaw, an attacker could send hostile data to the interpreter.
+		Question 12
+			Which of the following will mitigate or prevent an insecure deserialization vulnerability?
+			Choose the best answer.
+				A Implement integrity checks on any serialized object
+				B Accept serialized objects from all external sources
+				C Run code that deserializes in privileged environments
+				D All of the above
+				E A and C only
+				F None of the above
+			Implementing integrity checks on serialized objects will help to mitigate or prevent an insecure deserialization. However, you will want to run code that deserializes in the lowest privilege environment possible and to stop the application from accepting serialized objects from untrusted external sources.
+		
+	Infrastructure and App Security
+		Infrastructure? I thought OWASP dealt with app security.
+		Decisions about infrastructure can affect app security.Knowing how, helps us work across teams to keep our apps secure.
+
+		Sensitive Data Exposure
+			Flaws exist when algorithms are not strong enough or aren’t used correctly.
+			What is it? What is sensitive data exposure?
+				Apps should use secure cryptographic algorithms to safeguard sensitive data.
+				Sensitive data - Any information that needs to be protected against unwarranted disclosure.
+				When an algorithm is not secure or is not implemented correctly, sensitive data can be exposed.
+				An application with insufficient protection could expose a wide range of user data to attackers.
+			Where can it happen? How secure is your algorithm?
+				Some algorithms are easier to break than others.
+				Be sure your algorithm is appropriately secure for the data it protects
+				How is your data transmitted?
+					Check the protocols used when transmitting data.
+					Make sure sensitive data isn’t being transmitted in plain text. This applies to both external and internal traffic.
+				How is your data stored? Look at how sensitive data is stored.
+					It should not be stored in plain text. This includes the sensitive data stored in backups.
+			How can it be prevented? Know your data
+				Determine what protection your data needs, both while it is in transit and at rest.
+				Remember to refer to any laws and regulations that might govern the data or your industry.
+				When in doubt, encrypt data!
+				When designing or reviewing an application, focus on safeguarding sensitive data.
+				Plan with the following in mind:
+					Proper use of secure cryptographic algorithms
+					Safe storage of secret keys
+					Secure data transport
+		Security Misconfiguration
+			Those flaws could be anywhere!
+			Yeah. But we have scanners to help us find them
+			Unfortunately, so do attackers.
+		What Is a Security Misconfiguration Flaw?
+			Attackers try to find weaknesses through unpatched software, default accounts, unprotected files and directories, etc.
+			Misconfiguration flaws stem from security settings that are inappropriately defined, implemented, or maintained.
+		What Makes Apps Vulnerable to Security Misconfiguration Flaws? Flaws can be anywhere
+			These flaws can be found at any level of an application, including servers, databases, frameworks, custom code, or storage.
+			Systems are at higher risk when the organization doesn’t enforce a concerted, repeatable application security configuration process.
+			Typical mistakes to look for:
+				Out-of-date software
+				Default accounts and passwords
+				Security settings left with their default options, rather than configured for the application
+		Protect Against Security Misconfiguration Flaws
+			Institute a repeatable hardening process.
+			This makes it fast and easy to deploy environments that are properly locked down.
+		Creating a Repeatable Hardening Process
+			Define and deploy a secure configuration for each application, web server, database server, and platform.
+			Remove unnecessary features, samples, components, and documentation from all environments.
+			Configure separate environments (such as development, QA, and production) identically.
+			Ensure different credentials are required for each environment.
+		Using Components With Known Vulnerabilities
+			How can we know every component in our Apps?
+			You know, we are supposed to track them all, right?
+		Known Vulnerabilities Expose Apps to Risk
+			Components are common in software development, and developers may not know which are used in their applications or APIs.
+			This makes it easy to miss a needed component update, exposing the application to a known vulnerability.
+			Components usually run with the same privileges as the application itself.
+			So, if a flaw in a component is exploited, the results can be serious.
+		Finding Components With Known Vulnerabilities
+			Outdated or unsupported software is inherently vulnerable.
+			Check all software (both client-side and server-side) for components.
+			This includes components used directly or as a nested dependency.
+			nested dependency - When software engineers embed another piece of software into their own application.
+			Ask yourself: Have these components been configured securely? Are they updated and patched?
+			Consider your patching schedule. Waiting too long can leave your organization unnecessarily exposed to known vulnerabilities.
+		Avoiding Components With Known Vulnerabilities
+			Cleanup
+				To get components, use official sources over secure links.
+				Remove any unused files, features, components, dependencies, or documentation from your apps.
+				Keep track of each component’s version and dependencies.
+			Maintenance
+				Scan for vulnerabilities regularly and subscribe to security bulletins related to the components you use.
+				Monitor for libraries and components that you’re using that are unmaintained or that do not create security patches for older versions. Replace these whenever possible.
+				Test the compatibility of updated, upgraded, or patched libraries.
+				If a component cannot be patched, consider deploying a mitigating control to monitor, detect, or protect against the discovered issue.
+		Insufficient Logging and Monitoring
+			Most successful attacks start with vulnerability probing, right?
+			Yep. We have to catch an attacker while they are probing.
+			True. If we don’t, better believe they will attack.
+		What Is an Insufficient Logging and Monitoring Flaw?
+			Logins, failed logins, and high-value transactions must be logged properly.
+			This allows an organization to detect breaches and malicious activity. Detecting suspicious activity is critical for timely incident response.
+			If attackers can probe systems undetected, the likelihood of a successful attack rises to nearly 100%.
+		Where Can Insufficient Logging and Monitoring Flaws Happen?
+		Log Generation
+			The app generates insufficient logs
+			Missed events or unclear messages:
+				Logins, failed logins, and high-value transactions are either not logged or the messages generated by the logs are unclear.
+			Slow alerts:
+				The application is unable to detect, escalate, or alert for active attacks in real time or near-real time.
+		Log Monitoring
+			Logs are not properly monitored
+			Logs are not properly monitored for suspicious activity. This can include inadequate alerting thresholds.
+			Flaws in log monitoring can also exist if logging and alerting events are visible to a user or an attacker.
+		Response Plan
+			There is an insufficient response plan
+			An organization needs to have escalation and response processes in place.
+			An app can be vulnerable when processes for response escalation don’t exist, are not sufficient, or are not followed.
+		Protect Against Logging and Monitoring Flaws
+			Create sufficient logs
+				Format logs so they can be read by a centralized management solution.
+				Include enough context to identify the source of suspicious activity or accounts.
+			Establish audit trails
+				Put audit trails in place for high-value transactions.
+				Include integrity controls in the audit process to prevent tampering or deletion.
+			Monitor and respond
+				Establish effective monitoring and alerting controls, in order to detect and respond to suspicious activity in a timely fashion.
+				Understand and follow the incident response and recovery plan.
+		Question 1
+			Which of the following might indicate insufficient logging and monitoring?
+			Choose the best answer.
+				A Logs are not properly generated
+				B Log messages are not clear
+				C Logs and alerts are visible to end users
+				D All of the above [x]
+				E A and C only
+				F None of the above
+			When logs are not generated or monitored—or are not clear—it can be difficult to detect vulnerabilities in your system. Also, when log messages are visible to end users, attackers can take advantage and compromise your system.
+		Question 2
+			Attackers try to find security misconfiguration vulnerabilities in:
+			Choose the best answer.
+				A Unpatched software
+				B Default accounts
+				C Unprotected files and directories
+				D All of the above [x]
+				E A and C only
+				F None of the above
+			Attackers can use automated scanners to examine all of these places, looking for vulnerabilities to exploit.
+		Question 3
+			Which of the following can be done to prevent security misconfiguration vulnerabilities?
+			Choose the best answer.
+				A Keep default accounts and passwords active
+				B Keep all software up to date
+				C Configure different environments identically
+				D All of the above
+				E B and C only [x]
+				F None of the above
+			Keeping software up to date is important. Making sure different environments have identical security configurations will also help prevent these vulnerabilities. But you should delete any default accounts and passwords, especially if they are admin accounts.
+		Question 4
+			Where is it safe to have sensitive data in plain text?
+			Choose the best answer.
+				A Backups
+				B External traffic
+				C Internal traffic
+				D All of the above
+				E A and C only
+				F None of the above [x]
+			Sensitive data should never be stored or transmitted in plain text.
+		Question 5
+			Which of the following can help an organization avoid using components with known vulnerabilities?
+			Choose the best answer.
+				A Removing unused features or components
+				B Only using libraries from trusted third parties
+				C Monitoring for unmaintained libraries and components
+				D All of the above
+				E A and C only [x]
+				F None of the above
+			Any library can contain vulnerabilities, even libraries from trusted third parties. Organizations should maintain up-to-date records on the components used in software and libraries. Removing unused components and monitoring the status of libraries and components will help prevent the use of a component with a known vulnerability.
